@@ -2,5 +2,5 @@ Made by:
 
 --Nathalia Ortiz Granada
 --Santiago Amariles
---Carlos iCastillo
+--Carlos Castillo
 --Sara Suarez 
