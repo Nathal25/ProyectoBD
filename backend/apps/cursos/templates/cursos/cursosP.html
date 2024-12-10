@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Cursos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+        .header button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .header button:hover {
+            background-color: #0056b3;
+        }
+        .course-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .course-item {
+            background: #f4f4f9;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .course-item span {
+            font-size: 18px;
+        }
+        .course-item button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .course-item button:hover {
+            background-color: #a71d2a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Mis Cursos</h1>
+            <button onclick="window.location.href='crearCurso'">Crear Curso</button>
+        </div>
+        <ul class="course-list">
+            {% if cursos %}
+                {% for curso in cursos %}
+                <li class="course-item">
+                    <span>{{ curso.nombre }}</span>
+                    <button onclick="eliminarCurso('{{ curso.id }}')">Eliminar</button>
+                </li>
+                {% endfor %}
+            {% else %}
+                <p>No tienes cursos creados aún.</p>
+            {% endif %}
+        </ul>
+    </div>
+
+    <script>
+        function eliminarCurso(cursoId) {
+            if (confirm('¿Estás seguro de que deseas eliminar este curso?')) {
+                fetch(`/eliminar_curso/${cursoId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert('Error al eliminar el curso.');
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
+
