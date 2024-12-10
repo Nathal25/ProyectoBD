@@ -137,6 +137,25 @@
   text-align: center;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
+.user-type-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.user-type-buttons button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  width: 45%;
+}
+
+.user-type-buttons button:hover {
+  background-color: #45a049;
+}
+
 
 .tarjeta-clase h2 {
   margin-bottom: 10px;
@@ -211,4 +230,3 @@
 .modal button:hover {
   background-color: #ddd;
 }
-

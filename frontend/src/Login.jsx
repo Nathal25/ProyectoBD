@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';  // Necesitamos usar `useNavigate` para navegar a otras páginas
 
-// Componente Login
 function Login() {
   // Estado para almacenar el tipo de usuario, correo y contraseña
-  const [userType, setUserType] = useState('');  // Estado para el tipo de usuario (vacío inicialmente)
+  const [userType, setUserType] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigate = useNavigate();  // Hook para navegar entre rutas
 
   // Manejo del inicio de sesión
   const handleLogin = (e) => {
@@ -14,13 +16,20 @@ function Login() {
       alert("Por favor, selecciona un tipo de usuario.");
     } else {
       console.log(`Iniciando sesión como ${userType} con correo ${email}`);
-      // Aquí puedes agregar la lógica de autenticación (por ejemplo, enviar los datos a un servidor)
+      // Aquí puedes agregar la lógica de autenticación (por ejemplo, validación de usuario)
+      
+      // Redirigir según el tipo de usuario
+      if (userType === 'Estudiante') {
+        navigate('/register'); // Redirigir a la página de registro de estudiante
+      } else if (userType === 'Profesor') {
+        navigate('/profesor-dashboard'); // Redirigir al dashboard del profesor
+      }
     }
   };
 
   return (
     <div style={styles.container}>
-      <h1>Attenzio</h1>
+      <h1 style={styles.header}>Attenzio</h1>
 
       {/* Botones para seleccionar el tipo de usuario */}
       {userType === '' && (
@@ -42,25 +51,27 @@ function Login() {
 
       {/* Formulario de inicio de sesión */}
       {userType && (
-        <form onSubmit={handleLogin}>
-          <div>
-            <label>Correo institucional</label>
+        <form onSubmit={handleLogin} style={styles.form}>
+          <div style={styles.inputContainer}>
+            <label style={styles.label}>Correo institucional</label>
             <input 
               type="email" 
               value={email} 
               onChange={(e) => setEmail(e.target.value)} 
               placeholder="Correo institucional"
               style={styles.input}
+              required
             />
           </div>
-          <div>
-            <label>Contraseña</label>
+          <div style={styles.inputContainer}>
+            <label style={styles.label}>Contraseña</label>
             <input 
               type="password" 
               value={password} 
               onChange={(e) => setPassword(e.target.value)} 
               placeholder="Contraseña"
               style={styles.input}
+              required
             />
           </div>
 
@@ -68,17 +79,25 @@ function Login() {
           
           {/* Mensaje dependiendo del tipo de usuario */}
           {userType === 'Estudiante' && (
-            <p>
+            <p style={styles.text}>
               ¿No estás registrado?{' '}
-              <a href="mailto:profesor@universidad.com" style={styles.link}>
+              <span 
+                onClick={() => navigate('/register')}  // Redirige al formulario de registro de estudiante
+                style={styles.link}
+              >
                 Contacta a tu profesor
-              </a>
+              </span>
             </p>
           )}
           {userType === 'Profesor' && (
-            <p>
+            <p style={styles.text}>
               ¿Eres profesor nuevo?{' '}
-              <a href="/register" style={styles.link}>Regístrate aquí</a>
+              <span 
+                onClick={() => navigate('/teacher-register')}  // Redirige al formulario de registro de profesor
+                style={styles.link}
+              >
+                Regístrate aquí
+              </span>
             </p>
           )}
         </form>
@@ -91,17 +110,47 @@ const styles = {
   container: {
     backgroundColor: '#E6E6FA',
     padding: '20px',
-    borderRadius: '8px',
+    borderRadius: '15px',
     width: '300px',
     margin: 'auto',
     textAlign: 'center',
+    boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.1)',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    backgroundImage: 'url("https://www.transparenttextures.com/patterns/linen.png")',
+    backgroundSize: 'cover',
+    minWidth: '300px',
+  },
+  header: {
+    fontSize: '2em',
+    color: '#333',
+    marginBottom: '10px',
+    fontWeight: 'bold',
+  },
+  inputContainer: {
+    marginBottom: '10px',
+    textAlign: 'left',
+    width: '100%',
+  },
+  label: {
+    fontSize: '13px',
+    color: '#555',
+    marginBottom: '5px',
   },
   input: {
     width: '100%',
     padding: '10px',
-    margin: '10px 0',
-    borderRadius: '5px',
+    margin: '5px 0',
+    borderRadius: '8px',
     border: '1px solid #ccc',
+    boxSizing: 'border-box',
+    fontSize: '14px',
   },
   button: {
     backgroundColor: '#4CAF50',
@@ -109,20 +158,23 @@ const styles = {
     padding: '10px',
     width: '100%',
     border: 'none',
-    borderRadius: '5px',
+    borderRadius: '8px',
     cursor: 'pointer',
+    fontSize: '16px',
+    marginTop: '10px',
   },
   buttonContainer: {
     display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: '20px',
+    justifyContent: 'space-around',
+    marginBottom: '15px',
+    width: '100%',
   },
   activeButton: {
     backgroundColor: '#4CAF50',
     color: 'white',
     padding: '10px',
     border: 'none',
-    borderRadius: '5px',
+    borderRadius: '8px',
     cursor: 'pointer',
     width: '45%',
   },
@@ -131,14 +183,21 @@ const styles = {
     color: '#555',
     padding: '10px',
     border: 'none',
-    borderRadius: '5px',
+    borderRadius: '8px',
     cursor: 'pointer',
     width: '45%',
+  },
+  text: {
+    fontSize: '13px',
+    color: '#555',
   },
   link: {
     color: '#007BFF',
     textDecoration: 'underline',
     cursor: 'pointer',
+  },
+  form: {
+    width: '100%',
   },
 };
 
