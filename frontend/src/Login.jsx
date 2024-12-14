@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';  // Necesitamos usar `useNavigate` para navegar a otras páginas
 
@@ -20,7 +21,7 @@ function Login() {
       
       // Redirigir según el tipo de usuario
       if (userType === 'Estudiante') {
-        navigate('/register'); // Redirigir a la página de registro de estudiante
+        navigate('/estudiante'); // Redirigir a la página de registro de estudiante
       } else if (userType === 'Profesor') {
         navigate('/profesor-dashboard'); // Redirigir al dashboard del profesor
       }
