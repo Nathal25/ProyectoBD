@@ -1,6 +1,6 @@
 <h1 align="center"> Proyecto ATTENZIO </h1>
 
-<h2> Realizado por: </h2>
+<h2 align="center"> Realizado por: </h2>
 <p>
 --NATHALIA ORTIZ GRANADA 2372231 - 3743<br>
 --ERIK SANTIAGO AMARILES SOLARTE 2242964 - 3743 <br>
