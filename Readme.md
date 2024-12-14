@@ -2,8 +2,8 @@
 
 <h2> Realizado por: </h2>
 <p>
---Nathalia Ortiz Granada <br>
---Santiago Amariles<br>
---Carlos Castillo<br>
---Sara Suarez <br>
+--NATHALIA ORTIZ GRANADA 2372231 - 3743<br>
+--ERIK SANTIAGO AMARILES SOLARTE 2242964 - 3743 <br>
+--CARLOS ALBERTO CASTILLO ROA 202025605 - 3743<br>
+--SARA YINETH SUAREZ REYES 2241923 - 3743 <br>
 </p>
